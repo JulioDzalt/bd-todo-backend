@@ -4,21 +4,27 @@ docker run --rm --name todo-mysql \
 -v /home/julio/Desktop/bd-todo-backend/data:/var/lib/mysql \
 -d mysql:5.7
 
-docker exec -it 5acd5ea85078a118c89b7c737d570 mysql -p 
+docker exec -it 93a093b8329f9668a4f202c858d0441acd1a34c26add36d83bfec3bb86ac164d mysql -p 
 
 
 create database todos;
 
 use todos;
 
-CREATE TABLE IF NOT EXISTS todo (
+CREATE TABLE IF NOT EXISTS todos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT
 );
 
-select * from todo;
+select * from todos;
 
-INSERT INTO todo (title, description) VALUES  ("julio","juliodes");
-INSERT INTO todo (title, description) VALUES  ("juan","juandes");
+INSERT INTO todos (title, description) VALUES  ("julio","juliodes");
+INSERT INTO todos (title, description) VALUES  ("juan","juandes");
+INSERT INTO todos (title, description) VALUES  ("ya","jalo");
 
+
+CREATE USER 'julio'@'localhost' IDENTIFIED BY 'julio';
+GRANT ALL PRIVILEGES ON * . * TO 'julio'@'localhost';
+GRANT ALL PRIVILEGES ON todos.* TO 'julio'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
